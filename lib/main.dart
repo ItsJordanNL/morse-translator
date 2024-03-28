@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MorseCodeTranslator());
+  runApp(const MorseCodeTranslator());
 }
 
 class MorseCodeTranslator extends StatelessWidget {
+  const MorseCodeTranslator({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -12,17 +13,18 @@ class MorseCodeTranslator extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: TranslatorHomePage(),
+      home: const TranslatorHomePage(),
     );
   }
 }
 
 class TranslatorHomePage extends StatefulWidget {
+  const TranslatorHomePage({super.key});
   @override
-  _TranslatorHomePageState createState() => _TranslatorHomePageState();
+  TranslatorHomePageState createState() => TranslatorHomePageState();
 }
 
-class _TranslatorHomePageState extends State<TranslatorHomePage> {
+class TranslatorHomePageState extends State<TranslatorHomePage> {
   String _morseCode = '';
   String _translatedText = '';
 
@@ -43,59 +45,59 @@ class _TranslatorHomePageState extends State<TranslatorHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Morse Code Translator'),
+        title: const Text('Morse Code Translator'),
       ),
       body: Padding(
-        padding: EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
+            const Text(
               'Morse Code Input:',
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             Text(
               _morseCode,
-              style: TextStyle(fontSize: 16.0),
+              style: const TextStyle(fontSize: 16.0),
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
                   onPressed: () => _appendToMorseCode('.'),
-                  child: Text('.'),
+                  child: const Text('.'),
                 ),
                 ElevatedButton(
                   onPressed: () => _appendToMorseCode('-'),
-                  child: Text('-'),
+                  child: const Text('-'),
                 ),
                 ElevatedButton(
                   onPressed: () => _appendToMorseCode(' '),
-                  child: Text('Space'),
+                  child: const Text('Space'),
                 ),
                 ElevatedButton(
                   onPressed: () => _appendToMorseCode('/'),
-                  child: Text('/'),
+                  child: const Text('/'),
                 ),
               ],
             ),
-            SizedBox(height: 20.0),
+            const SizedBox(height: 20.0),
             ElevatedButton(
               onPressed: _translateMorseCode,
-              child: Text('Translate'),
+              child: const Text('Translate'),
             ),
-            SizedBox(height: 20.0),
-            Text(
+            const SizedBox(height: 20.0),
+            const Text(
               'Translated Text:',
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
             ),
-            SizedBox(height: 10.0),
+            const SizedBox(height: 10.0),
             Text(
               _translatedText,
-              style: TextStyle(fontSize: 16.0),
+              style: const TextStyle(fontSize: 16.0),
             ),
           ],
         ),
@@ -168,8 +170,8 @@ class MorseButton extends StatelessWidget {
   const MorseButton({
     required this.label,
     required this.onPressed,
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -177,7 +179,7 @@ class MorseButton extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         label,
-        style: TextStyle(fontSize: 20.0),
+        style: const TextStyle(fontSize: 20.0),
       ),
     );
   }
