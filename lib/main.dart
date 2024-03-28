@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(MorseCodeTranslator());
 }
 
-class MyApp extends StatelessWidget {
+class MorseCodeTranslator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -12,19 +12,32 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MorseTranslator(),
+      home: TranslatorHomePage(),
     );
   }
 }
 
-class MorseTranslator extends StatefulWidget {
+class TranslatorHomePage extends StatefulWidget {
   @override
-  _MorseTranslatorState createState() => _MorseTranslatorState();
+  _TranslatorHomePageState createState() => _TranslatorHomePageState();
 }
 
-class _MorseTranslatorState extends State<MorseTranslator> {
+class _TranslatorHomePageState extends State<TranslatorHomePage> {
   String _morseCode = '';
-  String _translation = '';
+  String _translatedText = '';
+
+  void _appendToMorseCode(String character) {
+    setState(() {
+      _morseCode += character;
+    });
+  }
+
+  void _translateMorseCode() {
+    setState(() {
+      _translatedText = translateMorseToText(_morseCode);
+      _morseCode = ''; // Clear Morse code after translation
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,55 +48,54 @@ class _MorseTranslatorState extends State<MorseTranslator> {
       body: Padding(
         padding: EdgeInsets.all(20.0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
+          children: [
             Text(
-              '$_morseCode',
-              style: TextStyle(fontSize: 24.0),
+              'Morse Code Input:',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10.0),
+            Text(
+              _morseCode,
+              style: TextStyle(fontSize: 16.0),
             ),
             SizedBox(height: 20.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                MorseButton(
-                  text: '.',
-                  onPressed: () {
-                    setState(() {
-                      _morseCode += '.';
-                    });
-                  },
+              children: [
+                ElevatedButton(
+                  onPressed: () => _appendToMorseCode('.'),
+                  child: Text('.'),
                 ),
-                MorseButton(
-                  text: '-',
-                  onPressed: () {
-                    setState(() {
-                      _morseCode += '-';
-                    });
-                  },
+                ElevatedButton(
+                  onPressed: () => _appendToMorseCode('-'),
+                  child: Text('-'),
                 ),
-                MorseButton(
-                  text: ' ',
-                  onPressed: () {
-                    setState(() {
-                      _morseCode += ' ';
-                    });
-                  },
+                ElevatedButton(
+                  onPressed: () => _appendToMorseCode(' '),
+                  child: Text('Space'),
+                ),
+                ElevatedButton(
+                  onPressed: () => _appendToMorseCode('/'),
+                  child: Text('/'),
                 ),
               ],
             ),
             SizedBox(height: 20.0),
             ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  _translation = translateMorseToText(_morseCode);
-                });
-              },
+              onPressed: _translateMorseCode,
               child: Text('Translate'),
             ),
             SizedBox(height: 20.0),
             Text(
-              'Translation: $_translation',
-              style: TextStyle(fontSize: 18.0),
+              'Translated Text:',
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+            ),
+            SizedBox(height: 10.0),
+            Text(
+              _translatedText,
+              style: TextStyle(fontSize: 16.0),
             ),
           ],
         ),
@@ -92,7 +104,7 @@ class _MorseTranslatorState extends State<MorseTranslator> {
   }
 
   String translateMorseToText(String morseCode) {
-    Map<String, String> morseToText = {
+    Map<String, String> morseCodeMap = {
       '.-': 'A',
       '-...': 'B',
       '-.-.': 'C',
@@ -129,46 +141,32 @@ class _MorseTranslatorState extends State<MorseTranslator> {
       '---..': '8',
       '----.': '9',
       '-----': '0',
-      '.-.-.-': '.',
-      '--..--': ',',
-      '..--..': '?',
-      '.----.': "'",
-      '-.-.--': '!',
-      '-..-.': '/',
-      '-.--.': '(',
-      '-.--.-': ')',
-      '.-...': '&',
-      '---...': ':',
-      '-.-.-.': ';',
-      '-...-': '=',
-      '.-.-.': '+',
-      '-....-': '-',
-      '..--.-': '_',
-      '.-..-.': '"',
-      '...-..-': '\$',
-      '.--.-.': '@',
-      '': ' ', // space
+      '/': ' ',
     };
 
-    List<String> words = morseCode.split(' ');
-    String translation = '';
-    for (String word in words) {
-      if (morseToText.containsKey(word)) {
-        translation += morseToText[word]!;
-      } else {
-        translation += '???'; // handle unrecognized Morse code characters
+    List<String> morseWords = morseCode.split('/');
+    String translatedText = '';
+
+    for (String morseWord in morseWords) {
+      List<String> morseCharacters = morseWord.trim().split(' ');
+      for (String morseChar in morseCharacters) {
+        if (morseCodeMap.containsKey(morseChar)) {
+          translatedText += morseCodeMap[morseChar]!;
+        }
       }
+      translatedText += ' ';
     }
-    return translation;
+
+    return translatedText.trim();
   }
 }
 
 class MorseButton extends StatelessWidget {
-  final String text;
+  final String label;
   final VoidCallback onPressed;
 
   const MorseButton({
-    required this.text,
+    required this.label,
     required this.onPressed,
     Key? key,
   }) : super(key: key);
@@ -178,8 +176,8 @@ class MorseButton extends StatelessWidget {
     return ElevatedButton(
       onPressed: onPressed,
       child: Text(
-        text,
-        style: TextStyle(fontSize: 24.0),
+        label,
+        style: TextStyle(fontSize: 20.0),
       ),
     );
   }
