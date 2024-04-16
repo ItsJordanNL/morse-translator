@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-class MyApp extends StatelessWidget {
+class Machine extends StatelessWidget {
+  const Machine({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       title: 'Timer Button Demo',
       home: TimerButton(),
     );
@@ -12,11 +14,13 @@ class MyApp extends StatelessWidget {
 }
 
 class TimerButton extends StatefulWidget {
+  const TimerButton({super.key});
+
   @override
-  _TimerButtonState createState() => _TimerButtonState();
+  TimerButtonState createState() => TimerButtonState();
 }
 
-class _TimerButtonState extends State<TimerButton> {
+class TimerButtonState extends State<TimerButton> {
   Timer? _pressedTimer;
   Timer? _notPressedTimer;
   int _pressedMilliseconds = 0;
@@ -24,7 +28,7 @@ class _TimerButtonState extends State<TimerButton> {
   String _displayText = '';
 
   void _startPressedTimer() {
-    _pressedTimer = Timer.periodic(Duration(milliseconds: 10), (timer) {
+    _pressedTimer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
       setState(() {
         _pressedMilliseconds += 10;
       });
@@ -45,7 +49,7 @@ class _TimerButtonState extends State<TimerButton> {
   }
 
   void _startNotPressedTimer() {
-    _notPressedTimer = Timer.periodic(Duration(milliseconds: 10), (timer) {
+    _notPressedTimer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
       setState(() {
         _notPressedMilliseconds += 10;
       });
@@ -69,7 +73,7 @@ class _TimerButtonState extends State<TimerButton> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Timer Button'),
+        title: const Text('Timer Button'),
       ),
       body: Center(
         child: Column(
@@ -77,23 +81,24 @@ class _TimerButtonState extends State<TimerButton> {
           children: <Widget>[
             Text(
               'Pressed Milliseconds: $_pressedMilliseconds',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
             Text(
               'Not Pressed Milliseconds: $_notPressedMilliseconds',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             Text(
               _displayText,
-              style: TextStyle(fontSize: 24),
+              style: const TextStyle(fontSize: 24),
             ),
-            SizedBox(height: 20),
+            const SizedBox(height: 20),
             GestureDetector(
               onTapDown: (details) {
                 _startPressedTimer();
                 _stopNotPressedTimer();
-                if (_notPressedMilliseconds > 350 && _notPressedMilliseconds < 1000) {
+                if (_notPressedMilliseconds > 350 &&
+                    _notPressedMilliseconds < 1000) {
                   setState(() {
                     _displayText += ' ';
                   });
@@ -133,9 +138,9 @@ class _TimerButtonState extends State<TimerButton> {
                 _resetPressedTime();
               },
               child: Container(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 color: Colors.blue,
-                child: Text(
+                child: const Text(
                   'Press and Hold',
                   style: TextStyle(fontSize: 20, color: Colors.white),
                 ),
