@@ -21,6 +21,7 @@ class _TimerButtonState extends State<TimerButton> {
   Timer? _notPressedTimer;
   int _pressedMilliseconds = 0;
   int _notPressedMilliseconds = 0;
+  String _displayText = '';
 
   void _startPressedTimer() {
     _pressedTimer = Timer.periodic(Duration(milliseconds: 10), (timer) {
@@ -83,6 +84,11 @@ class _TimerButtonState extends State<TimerButton> {
               style: TextStyle(fontSize: 20),
             ),
             SizedBox(height: 20),
+            Text(
+              _displayText,
+              style: TextStyle(fontSize: 24),
+            ),
+            SizedBox(height: 20),
             GestureDetector(
               onTapDown: (details) {
                 _startPressedTimer();
@@ -91,13 +97,35 @@ class _TimerButtonState extends State<TimerButton> {
               },
               onTapUp: (details) {
                 _stopPressedTimer();
-                _resetPressedTime();
                 _startNotPressedTimer();
+                if (_pressedMilliseconds < 200) {
+                  // Print dot
+                  setState(() {
+                    _displayText += '.';
+                  });
+                } else {
+                  // Print stripe
+                  setState(() {
+                    _displayText += '-';
+                  });
+                }
+                _resetPressedTime();
               },
               onTapCancel: () {
                 _stopPressedTimer();
-                _resetPressedTime();
                 _startNotPressedTimer();
+                if (_pressedMilliseconds < 200) {
+                  // Print dot
+                  setState(() {
+                    _displayText += '.';
+                  });
+                } else {
+                  // Print stripe
+                  setState(() {
+                    _displayText += '-';
+                  });
+                }
+                _resetPressedTime();
               },
               child: Container(
                 padding: EdgeInsets.all(16),
