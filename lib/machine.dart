@@ -7,7 +7,8 @@ class Machine extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: 'Timer Button Demo',
+      debugShowCheckedModeBanner: false,
+      title: 'Morse Translator Machine',
       home: TimerButton(),
     );
   }
@@ -49,7 +50,8 @@ class TimerButtonState extends State<TimerButton> {
   }
 
   void _startNotPressedTimer() {
-    _notPressedTimer = Timer.periodic(const Duration(milliseconds: 10), (timer) {
+    _notPressedTimer =
+        Timer.periodic(const Duration(milliseconds: 10), (timer) {
       setState(() {
         _notPressedMilliseconds += 10;
       });
