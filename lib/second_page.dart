@@ -92,19 +92,26 @@ class _TimerButtonState extends State<TimerButton> {
             GestureDetector(
               onTapDown: (details) {
                 _startPressedTimer();
-                _resetNotPressedTime();
                 _stopNotPressedTimer();
+                if (_notPressedMilliseconds > 350 && _notPressedMilliseconds < 1000) {
+                  setState(() {
+                    _displayText += ' ';
+                  });
+                } else if (_notPressedMilliseconds >= 1000) {
+                  setState(() {
+                    _displayText += '/';
+                  });
+                }
+                _resetNotPressedTime();
               },
               onTapUp: (details) {
                 _stopPressedTimer();
                 _startNotPressedTimer();
                 if (_pressedMilliseconds < 200) {
-                  // Print dot
                   setState(() {
                     _displayText += '.';
                   });
                 } else {
-                  // Print stripe
                   setState(() {
                     _displayText += '-';
                   });
@@ -115,12 +122,10 @@ class _TimerButtonState extends State<TimerButton> {
                 _stopPressedTimer();
                 _startNotPressedTimer();
                 if (_pressedMilliseconds < 200) {
-                  // Print dot
                   setState(() {
                     _displayText += '.';
                   });
                 } else {
-                  // Print stripe
                   setState(() {
                     _displayText += '-';
                   });
