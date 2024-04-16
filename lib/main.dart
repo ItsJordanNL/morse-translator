@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'second_page.dart'; // Import the second page file
+import 'machine.dart'; // Import the second page file
 
 void main() {
   runApp(const MorseCodeTranslator());
