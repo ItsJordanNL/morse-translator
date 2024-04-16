@@ -31,7 +31,7 @@ class MorseCodeHomePageState extends State<MorseCodeHomePage> {
 
   static final List<Widget> _widgetOptions = <Widget>[
     const TranslatorHomePage(),
-    Machine(), // Add SecondPage to the list of pages
+    const TimerButton(), // Add SecondPage to the list of pages
   ];
 
   void _onItemTapped(int index) {

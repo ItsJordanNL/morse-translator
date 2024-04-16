@@ -1,19 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 
-class Machine extends StatelessWidget {
-  const Machine({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Morse Translator Machine',
-      home: TimerButton(),
-    );
-  }
-}
-
 class TimerButton extends StatefulWidget {
   const TimerButton({super.key});
 
@@ -75,7 +62,7 @@ class TimerButtonState extends State<TimerButton> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Timer Button'),
+        title: const Text('Morse Translator Machine'),
       ),
       body: Center(
         child: Column(
