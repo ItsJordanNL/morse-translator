@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'second_page.dart'; // Import the second page file
 
 void main() {
   runApp(const MorseCodeTranslator());
@@ -9,12 +10,54 @@ class MorseCodeTranslator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false, // Remove the debug banner
+      debugShowCheckedModeBanner: false,
       title: 'Morse Code Translator',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const TranslatorHomePage(),
+      home: const MorseCodeHomePage(),
+    );
+  }
+}
+
+class MorseCodeHomePage extends StatefulWidget {
+  const MorseCodeHomePage({super.key});
+  @override
+  MorseCodeHomePageState createState() => MorseCodeHomePageState();
+}
+
+class MorseCodeHomePageState extends State<MorseCodeHomePage> {
+  int _selectedIndex = 0;
+
+  static final List<Widget> _widgetOptions = <Widget>[
+    const TranslatorHomePage(),
+    MyApp(), // Add SecondPage to the list of pages
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: _widgetOptions.elementAt(_selectedIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.devices),
+            label: 'Computer',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.touch_app),
+            label: 'Machine',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      ),
     );
   }
 }
@@ -46,7 +89,7 @@ class TranslatorHomePageState extends State<TranslatorHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Morse Code Translator'),
+        title: const Text('Morse Translator Computer'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
