@@ -104,8 +104,7 @@ class TranslatorHomePageState extends State<TranslatorHomePage> {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
               'Morse Code Input:',
@@ -117,33 +116,6 @@ class TranslatorHomePageState extends State<TranslatorHomePage> {
               style: const TextStyle(fontSize: 16.0),
             ),
             const SizedBox(height: 20.0),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ElevatedButton(
-                  onPressed: () => _appendToMorseCode('.'),
-                  child: const Text('.'),
-                ),
-                ElevatedButton(
-                  onPressed: () => _appendToMorseCode('-'),
-                  child: const Text('-'),
-                ),
-                ElevatedButton(
-                  onPressed: () => _appendToMorseCode(' '),
-                  child: const Text('Space'),
-                ),
-                ElevatedButton(
-                  onPressed: () => _appendToMorseCode('/'),
-                  child: const Text('/'),
-                ),
-              ],
-            ),
-            const SizedBox(height: 20.0),
-            ElevatedButton(
-              onPressed: _translateMorseCode,
-              child: const Text('Translate'),
-            ),
-            const SizedBox(height: 20.0),
             const Text(
               'Translated Text:',
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
@@ -152,6 +124,57 @@ class TranslatorHomePageState extends State<TranslatorHomePage> {
             Text(
               _translatedText,
               style: const TextStyle(fontSize: 16.0),
+            ),
+            const Spacer(), // Spacer to push buttons to the bottom
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => _appendToMorseCode('.'),
+                        child: const Text('Dot',
+                            style: TextStyle(color: Colors.black)),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _appendToMorseCode('-'),
+                        child: const Text('Stripe',
+                            style: TextStyle(color: Colors.black)),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _appendToMorseCode(' '),
+                        child: const Text('Letter',
+                            style: TextStyle(color: Colors.black)),
+                      ),
+                      ElevatedButton(
+                        onPressed: () => _appendToMorseCode('/'),
+                        child: const Text('Word',
+                            style: TextStyle(color: Colors.black)),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 20.0),
+                  ElevatedButton(
+                    onPressed: _translateMorseCode,
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Icon(
+                          Icons.translate,
+                          color: Colors.black, // Set the color of the icon
+                        ),
+                        SizedBox(width: 5),
+                        Text(
+                          'Translate',
+                          style: TextStyle(color: Colors.black),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
             ),
           ],
         ),
