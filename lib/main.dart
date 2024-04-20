@@ -14,6 +14,7 @@ class MorseCodeTranslator extends StatelessWidget {
       title: 'Morse Code Translator',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        fontFamily: 'Poppins',
       ),
       home: const MorseCodeHomePage(),
     );
@@ -45,6 +46,8 @@ class MorseCodeHomePageState extends State<MorseCodeHomePage> {
     return Scaffold(
       body: _widgetOptions.elementAt(_selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: const Color.fromARGB(
+            255, 20, 21, 22), // Set background color to red
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.devices),
@@ -56,6 +59,9 @@ class MorseCodeHomePageState extends State<MorseCodeHomePage> {
           ),
         ],
         currentIndex: _selectedIndex,
+        selectedItemColor: Colors.white, // Set color for active icon
+        unselectedItemColor:
+            Colors.white.withOpacity(0.6), // Set color for inactive icon
         onTap: _onItemTapped,
       ),
     );
@@ -89,7 +95,11 @@ class TranslatorHomePageState extends State<TranslatorHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(
+            255, 20, 21, 22), // Set the background color to gray
+        foregroundColor: Colors.white,
         title: const Text('Morse Translator Computer'),
+        centerTitle: true, // Center the title text
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),

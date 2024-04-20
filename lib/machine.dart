@@ -33,6 +33,66 @@ class TimerButtonState extends State<TimerButton> {
     }
   }
 
+  void _showHelpDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Theme(
+          data: ThemeData(
+            dialogBackgroundColor:
+                Colors.white, // Set background color to white
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                foregroundColor: Colors.black, // Set button text color to black
+              ),
+            ),
+          ),
+          child: AlertDialog(
+            title: const Center(child: Text("Timing meaning")),
+            contentPadding: EdgeInsets.zero,
+            content: const SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Text(
+                      "Pressing for 0 - 200ms = dot",
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Text(
+                    "Pressing for 200ms+ = stripe",
+                    textAlign: TextAlign.center,
+                  ),
+                  Text(
+                    "Pausing for 0 - 350ms = word",
+                    textAlign: TextAlign.center,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 10),
+                    child: Text(
+                      "Pausing for 350ms+ = space",
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Center(child: Text("Close")),
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   void _resetPressedTime() {
     setState(() {
       _pressedMilliseconds = 0;
@@ -62,6 +122,10 @@ class TimerButtonState extends State<TimerButton> {
   }
 
   void translateMorseToText() {
+    _stopPressedTimer(); // Stop the pressed timer
+    _stopNotPressedTimer(); // Stop the not pressed timer
+    _resetPressedTime(); // Reset the pressed timer
+    _resetNotPressedTime(); // Reset the not pressed timer
     // Define your Morse to text translation logic here
     // For simplicity, let's assume a mapping of Morse code to text
     final morseToText = {
@@ -120,6 +184,10 @@ class TimerButtonState extends State<TimerButton> {
   }
 
   void clearTranslatedText() {
+    _stopPressedTimer(); // Stop the pressed timer
+    _stopNotPressedTimer(); // Stop the not pressed timer
+    _resetPressedTime(); // Reset the pressed timer
+    _resetNotPressedTime(); // Reset the not pressed timer
     setState(() {
       _displayText = '';
       _isTranslated = false;
@@ -139,13 +207,18 @@ class TimerButtonState extends State<TimerButton> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color.fromARGB(
+            255, 20, 21, 22), // Set the background color to gray
+        foregroundColor: Colors.white,
         title: const Text('Morse Translator Machine'),
+        centerTitle: true, // Center the title text
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Container(
-            padding: const EdgeInsets.only(top: 10, right: 12, bottom: 10, left: 12),
+            padding:
+                const EdgeInsets.only(top: 10, right: 12, bottom: 10, left: 12),
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
@@ -154,19 +227,48 @@ class TimerButtonState extends State<TimerButton> {
                     : _displayText,
                 style: TextStyle(
                   fontSize: 20,
-                  color: _displayText.isEmpty ? Colors.black.withOpacity(0.25) : Colors.black,
+                  color: _displayText.isEmpty
+                      ? Colors.black.withOpacity(0.25)
+                      : Colors.black,
                 ),
               ),
             ),
           ),
-          Container(
-            alignment: Alignment.center,
-            child: ElevatedButton(
-              onPressed:
-                  _isTranslated ? clearTranslatedText : translateMorseToText,
-              child: Text(
-                  _isTranslated ? 'Clear Text' : 'Translate Morse to Text'),
-            ),
+          Row(
+            // Wrap the button with Row
+            mainAxisAlignment:
+                MainAxisAlignment.end, // Align the button to the right
+            children: [
+              Padding(
+                padding:
+                    const EdgeInsets.all(8.0), // Add margin in all directions
+                child: ElevatedButton(
+                  onPressed: _isTranslated
+                      ? clearTranslatedText
+                      : translateMorseToText,
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors
+                        .black
+                        .withOpacity(0.4)), // Set background color to red
+                    foregroundColor: MaterialStateProperty.all<Color>(
+                        Colors.white), // Set text color to white
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(_isTranslated
+                          ? Icons.clear
+                          : Icons
+                              .translate), // Different icons based on _isTranslated
+                      const SizedBox(
+                          width:
+                              8), // Adjust the spacing between the icon and text
+                      Text(_isTranslated ? 'Clear Text' : 'Translate Morse'),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
           Expanded(
             child: GestureDetector(
@@ -229,21 +331,35 @@ class TimerButtonState extends State<TimerButton> {
                     fit: BoxFit.cover,
                   ),
                 ),
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        'Pressed Milliseconds: $_pressedMilliseconds',
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                      Text(
-                        'Not Pressed Milliseconds: $_notPressedMilliseconds',
-                        style: const TextStyle(fontSize: 20),
-                      ),
-                      const SizedBox(height: 20),
-                      const SizedBox(height: 20),
-                    ],
+                child: Padding(
+                  padding: const EdgeInsets.all(
+                      10), // Add padding of 10 from all sides
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        GestureDetector(
+                          onTap: () {
+                            _showHelpDialog(context);
+                          },
+                          child: Icon(
+                            Icons.help_outline,
+                            color: Colors.black,
+                            size: 30,
+                          ),
+                        ),
+                        Text(
+                          'Pressing: ${_pressedMilliseconds}ms',
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                        Text(
+                          'Pausing: ${_notPressedMilliseconds}ms',
+                          style: const TextStyle(fontSize: 20),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
