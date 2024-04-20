@@ -66,7 +66,7 @@ class TimerButtonState extends State<TimerButton> {
                     textAlign: TextAlign.center,
                   ),
                   Text(
-                    "Pausing for 350 - 100ms = letter",
+                    "Pausing for 350 - 1000ms = letter",
                     textAlign: TextAlign.center,
                   ),
                   Padding(
