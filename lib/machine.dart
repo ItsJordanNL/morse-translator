@@ -223,7 +223,7 @@ class TimerButtonState extends State<TimerButton> {
               alignment: Alignment.centerLeft,
               child: Text(
                 _displayText.isEmpty
-                    ? "Start by tapping the machine below..."
+                    ? "Start by tapping machine below..."
                     : _displayText,
                 style: TextStyle(
                   fontSize: 20,
@@ -344,7 +344,7 @@ class TimerButtonState extends State<TimerButton> {
                           onTap: () {
                             _showHelpDialog(context);
                           },
-                          child: Icon(
+                          child: const Icon(
                             Icons.help_outline,
                             color: Colors.black,
                             size: 30,
