@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'machine.dart'; // Import the second page file
+import 'classic.dart'; // Import the second page file
 
 void main() {
   runApp(const MorseCodeTranslator());
@@ -51,11 +51,11 @@ class MorseCodeHomePageState extends State<MorseCodeHomePage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.devices),
-            label: 'Computer',
+            label: 'Modern',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.touch_app),
-            label: 'Machine',
+            label: 'Classic',
           ),
         ],
         currentIndex: _selectedIndex,
@@ -98,7 +98,7 @@ class TranslatorHomePageState extends State<TranslatorHomePage> {
         backgroundColor: const Color.fromARGB(
             255, 20, 21, 22), // Set the background color to gray
         foregroundColor: Colors.white,
-        title: const Text('Morse Translator Computer'),
+        title: const Text('Morse Translator Modern'),
         centerTitle: true, // Center the title text
       ),
       body: Padding(

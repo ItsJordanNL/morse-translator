@@ -210,7 +210,7 @@ class TimerButtonState extends State<TimerButton> {
         backgroundColor: const Color.fromARGB(
             255, 20, 21, 22), // Set the background color to gray
         foregroundColor: Colors.white,
-        title: const Text('Morse Translator Machine'),
+        title: const Text('Morse Translator Classic'),
         centerTitle: true, // Center the title text
       ),
       body: Column(
