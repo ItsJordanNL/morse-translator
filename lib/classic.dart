@@ -347,16 +347,16 @@ class TimerButtonState extends State<TimerButton> {
                           child: const Icon(
                             Icons.help_outline,
                             color: Colors.black,
-                            size: 30,
+                            size: 20,
                           ),
                         ),
                         Text(
                           'Pressing: ${_pressedMilliseconds}ms',
-                          style: const TextStyle(fontSize: 18),
+                          style: const TextStyle(fontSize: 12),
                         ),
                         Text(
                           'Pausing: ${_notPressedMilliseconds}ms',
-                          style: const TextStyle(fontSize: 18),
+                          style: const TextStyle(fontSize: 12),
                         ),
                       ],
                     ),
