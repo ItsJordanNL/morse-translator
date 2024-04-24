@@ -352,11 +352,11 @@ class TimerButtonState extends State<TimerButton> {
                         ),
                         Text(
                           'Pressing: ${_pressedMilliseconds}ms',
-                          style: const TextStyle(fontSize: 20),
+                          style: const TextStyle(fontSize: 18),
                         ),
                         Text(
                           'Pausing: ${_notPressedMilliseconds}ms',
-                          style: const TextStyle(fontSize: 20),
+                          style: const TextStyle(fontSize: 18),
                         ),
                       ],
                     ),
