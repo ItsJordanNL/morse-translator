@@ -1,16 +1,12 @@
-# morse_translator
+# Morse Translator
+## What is it?
+This app has two functions, it is a generic (modern) morse code translator, but there is also a "classic" translator that detects the duration of your presses and the time between these presses. Because of this, it is able to take input with only 1 button.
 
-A new Flutter project.
+These are the timings that belong with the button:
+- Press for 0ms - 200ms: dot
+- Press for 200ms or more: stripe
+- Pause for 350ms - 1000ms: next letter
+- Pause for 1000ms or more: next word
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Things to keep in mind
+This app was made by someone who had no prior knowledge of Flutter 2 months ago. I did this project to develop my Flutter skills (and it worked out). The code could probably be written in a more efficient way.
