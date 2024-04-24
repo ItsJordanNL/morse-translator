@@ -136,22 +136,22 @@ class TranslatorHomePageState extends State<TranslatorHomePage> {
                       ElevatedButton(
                         onPressed: () => _appendToMorseCode('.'),
                         child: const Text('Dot',
-                            style: TextStyle(color: Colors.black)),
+                            style: TextStyle(color: Colors.black, fontSize: 10)),
                       ),
                       ElevatedButton(
                         onPressed: () => _appendToMorseCode('-'),
                         child: const Text('Stripe',
-                            style: TextStyle(color: Colors.black)),
+                            style: TextStyle(color: Colors.black, fontSize: 10)),
                       ),
                       ElevatedButton(
                         onPressed: () => _appendToMorseCode(' '),
                         child: const Text('Letter',
-                            style: TextStyle(color: Colors.black)),
+                            style: TextStyle(color: Colors.black, fontSize: 10)),
                       ),
                       ElevatedButton(
                         onPressed: () => _appendToMorseCode('/'),
                         child: const Text('Word',
-                            style: TextStyle(color: Colors.black)),
+                            style: TextStyle(color: Colors.black, fontSize: 10)),
                       ),
                     ],
                   ),

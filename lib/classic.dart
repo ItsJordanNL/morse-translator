@@ -226,7 +226,7 @@ class TimerButtonState extends State<TimerButton> {
                     ? "Start by tapping machine below..."
                     : _displayText,
                 style: TextStyle(
-                  fontSize: 20,
+                  fontSize: 18,
                   color: _displayText.isEmpty
                       ? Colors.black.withOpacity(0.25)
                       : Colors.black,
